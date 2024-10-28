@@ -1,0 +1,16 @@
+<div class="form-check"  >
+  <label  class="form-check-label mb-0" [for]="label">{{label}}</label>
+  <input
+        class="form-check-input"
+        type="radio"
+        [formControl]="control"
+        [value]="label"
+        [id]="label">  
+</div>
+  @if(control.errors &&  control.touched){
+      <div class="alert-danger alert" >
+            @if(control.getError('required')){
+              <P>{{label}} is please select an option </P>
+                }
+      </div>
+}

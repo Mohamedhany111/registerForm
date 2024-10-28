@@ -1,0 +1,10 @@
+.input{
+  border: 2px solid gray !important;
+  border-radius: 20px;
+  width: 300px !important;
+  height: 50px;
+}
+label{
+  font-size: 30px;
+  color:green;
+}

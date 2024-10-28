@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form [formGroup]="registerForm">
+        <h2 class="title">Register Form:</h2>
+        <h2>
+          {{ registerForm.controls.firstName.value
+          }}{{ registerForm.controls.lastName.value }}
+        </h2>
+        <div class="w-75">
+          <form
+            class="d-flex justify-content-between align-items-center"
+            [formGroup]="registerForm"
+          >
+            <div class="name_btn">
+              <app-register
+                label="firstName"
+                [control]="registerForm.controls.firstName"
+              ></app-register>
+            </div>
+            <div class="name_btn">
+              <app-register
+                label="lastName"
+                [control]="registerForm.controls.lastName"
+              ></app-register>
+            </div>
+          </form>
+        </div>
+        <!-- start radio btn -->
+        <h2>Gender</h2>
+        <div class="gender d-flex">
+          <div class="form-check">
+            <app-radio-btn
+              label="male"
+              [control]="registerForm.controls.gender"
+              value="male"
+            ></app-radio-btn>
+          </div>
+          <div class="form-check">
+            <app-radio-btn
+              label="Female"
+              [control]="registerForm.controls.gender"
+              value="female"
+            ></app-radio-btn>
+          </div>
+        </div>
+        <!-- end radio btn -->
+        <h2>BirthDay:</h2>
+        <div class="date">
+          <form
+            class="d-flex justify-content-between align-items-center"
+            [formGroup]="registerForm"
+          >
+            <label class="date" for="date">Select a date:</label>
+            @if(registerForm.getError('invalidDate')){ }
+            <input
+              type="date"
+              class="date-input form-control"
+              style="width: 30%"
+              id="date"
+              name="date"
+              formControlName="date"
+              (change)="date($event)"
+            />
+            @if(registerForm.controls.date.getError('invalidDate')){
+            <div class="alert alert-danger">
+              <h6 style="color: gray">the year above {{ thisYear }}</h6>
+            </div>
+            }
+  
+            <div>
+              <label for="age" class="age">Age</label>
+              <h2>{{ userAge }}</h2>
+            </div>
+          </form>
+        </div>
+        <h2>Hoppies:</h2>
+        <div class="hoppies ">
+          <form [formGroup]="registerForm">
+            <div class="plus d-block" formArrayName="hoppies">
+              <div *ngFor="let x of hoppiesArray.controls; let i = index">
+                <div [formGroupName]="i" class="d-flex ">
+                  <!-- <input
+                    class="input form-control mb-2"
+                    style="width: 50%"
+                    formControlName="new_hoppies"
+                  /> -->
+                  <app-register [control]="x.controls.new_hoppies" [label]="'hoppies'"></app-register>
+                  <div class="minus">
+                    <button
+                      (click)="removeStudent(i)"
+                      class="btn btn-danger mx-1"
+                      [ngClass]="{disabled :i < 1}"
+                    >
+                      -
+                    </button>
+                  </div>
+                  <div class="add">
+                    <button (click)="addStudent()" class="btn btn-info mx-1">
+                      +
+                    </button>
+                  </div>
+                </div>      
+              </div>
+            </div>
+          </form>
+        </div>
+ 
+  
+        <div class="input-group mb-3">
+          <div class="input-group-text" [formGroup]="registerForm">
+            <input
+              class="form-check-input mt-0"
+              type="checkbox"
+              value=""
+              aria-label="Checkbox for following text input"
+              formControlName="condition"
+            />
+          </div>
+          <h2 class="condition">accept terms and condition</h2>
+        </div>
+        <div class="button d-flex">
+            <div class="reset">
+              <button class="btn" type="reset" (click)="resetData()">Reset</button>
+            </div>
+            <div class="sumbit">
+              <button class="btn" type="submit" (click)="sumbitData()">Sumbit</button>
+            </div>
+  
+        </div>
+        @if(registerForm.invalid && registerForm.touched){
+          <div class="alert alert-danger m-3" style="width: 30%">
+            <h6>please check on condition</h6>
+          </div>
+          }
+     
+      </form>
+    </div>
+    <div class="col-md-4 d-flex justify-content-center align-items-center">
+      <img
+        src="../assets/image/Forgot password-bro.png"
+        class="img-thumbnail"
+      />
+  </div>  
+  </div>
+</div>

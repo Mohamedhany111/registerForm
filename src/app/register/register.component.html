@@ -1,0 +1,45 @@
+<div class="label">
+  <label class="label" [for]="label" >{{ label }}</label>
+  <input
+  class="input"
+      [formControl]="control"
+            [id]="label"
+            style="width: 25%;"
+/>
+</div>
+@if(control.getError('required')){
+  @if(control.errors &&  control.touched){
+    <div class="alert-danger alert" >
+        @if(control.getError('required')){
+     <P>{{label}} is required</P>
+        }
+    </div>
+  }
+}@else if (control.getError('maxlength')) {
+  @if(control.errors &&  control.touched){
+    <div class="alert-danger alert">
+        @if(control.getError('maxlength'); as max){
+     <P> {{label}} is requiredLength: {{max["requiredLength"] }} and actual Length is: {{max["actualLength"]}} </P>
+        }
+    </div>
+  }
+}
+@else if (control.getError('minlength')) {
+  @if(control.errors &&  control.touched){
+    <div class="alert-danger alert">
+        @if(control.getError('minlength'); as min){
+     <P> {{label}} is requiredLength: {{min["requiredLength"] }} and actual Length is: {{min["actualLength"]}} </P>
+        }
+    </div>
+  }
+}@else if (control.getError('validName')) {
+  @if(control.errors){
+    <div class="alert alert-danger">
+      @if(control.getError('validName')){
+        <p>{{label}} is Fake</p>
+      }
+  </div>
+  }
+}
+
+
